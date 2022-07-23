@@ -1,0 +1,497 @@
+{% extends 'base.html' %}
+{% load static %}
+{%block content%}
+<div class="container-scroller content-wrapper">
+    <!-- partial:partials/_navbar.html -->
+    <h3 class="my-5">Delivered Orders</h3>
+    <div class="col-md-12 bg-white p-4  shadow" style="border-radius: 10px;">
+        <table id="example4"  data-order='[[ 0, "desc" ]]' class="table table-hover table-bordered " style="width:100%">
+            <thead>
+                <tr>
+                    <th>Inv ID</th>
+                    <th>Cust ID</th>
+                    <th>Name</th>
+                    <th>Membership ID</th>
+                    <th>Service</th>
+                    <th data-class-name="priority">Date</th>
+                    <th>Due Date</th>
+                    <th>Payment Type</th>
+                    <th>Payment Status</th>
+                    <th>Total pic</th>
+                    <th>Price</th>
+                    <th>Discount</th>
+                    <th>Net</th>
+                    <th>Payment Due</th>
+                    <th>Paid</th>
+                    <th>M Price</th>
+                    <th>M Point</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td>Totals</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tfoot>
+            <tbody>
+                {%for item in invoice %}
+                {%if item.cancel != 1 and item.status != "Pending"%}
+                <tr>
+                    <td>{{item.id}}</td>
+                    <td>{{item.cust_id_id}}</td>
+                    <td>
+                        {%for cust in customer%}
+                        {%if cust.id == item.cust_id_id%}
+                        {{cust.customer_name}}
+                        {%endif%}
+                        {%endfor%}
+                    </td>
+                    <td>
+                        {%for mbsp in cmbsp %}
+                        {%if mbsp.custid_id == item.cust_id_id%}
+                        {{mbsp.id}}
+                        {% else %}
+                        None
+                        {%endif%}
+                        {%endfor%}
+                    </td>
+                    <td>
+                        {%for order in orders%}
+                        {%if order.inv_id_id == item.id%}
+                        {{order.service}}
+                        {%endif%}
+                        {%endfor%}
+                    </td>
+
+                    <td>{{item.date}}</td>
+                    <td>{{item.due_date}}</td>
+                    <td>
+                        {% if item.payment_type == 0 %}
+                        Pending
+
+                        {% elif item.payment_type == 1 %}
+                        Cash
+                        {% elif item.payment_type == 2 %}
+                        Card
+                        {% elif item.payment_type == 3 %}
+                        Bank
+                        {% elif item.payment_type == 4 %}
+                        Gpay
+
+                        {% endif %}
+                    </td>
+                    <td>{{item.payment_status}}</td>
+                    <td>{{item.total_piece}}</td>
+                    <td>{{item.price}}</td>
+                    <td>{{item.discount}}</td>
+                    <td>{{item.net}}</td>
+                    <td>{{item.payment_due}}</td>
+                    <td>{{item.paid}}</td>
+                    <td>{{item.m_price}}</td>
+                    <td>{{item.m_point}}</td>
+                    <td>
+                        <button style="border: none;">
+                            <a href="{%url 'order:detail' item.id%}">
+                                <i class="mdi mdi-eye"></i>
+                            </a>
+                        </button>
+                    </td>
+                </tr>
+                {%endif%}
+                {%endfor%}
+
+            </tbody>
+
+        </table>
+    </div>
+
+
+
+    <!-- partial:partials/_navbar.html -->
+    <h3 class="my-5">Pending Delivery Orders</h3>
+    <div class="col-md-12 bg-white p-4  shadow" style="border-radius: 10px;">
+        <table id="example5" class="table table-hover table-bordered " style="width:100%">
+            <thead>
+                <tr>
+                    <th>Inv ID</th>
+                    <th>Cust ID</th>
+                    <th>Name</th>
+                    <th>Membership ID</th>
+                    <th>Service</th>
+                    <th>Date</th>
+                    <th>Due Date</th>
+                    <th>Payment Type</th>
+                    <th>Payment Status</th>
+                    <th>Total pic</th>
+                    <th>Price</th>
+                    <th>Discount</th>
+                    <th>Net</th>
+                    <th>Payment Due</th>
+                    <th>Paid</th>
+                    <th>M Price</th>
+                    <th>M Point</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td>Totals</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tfoot>
+            <tbody>
+                {%for item in invoice %}
+                {%if item.cancel != 1 and item.status == "Pending"%}
+                <tr>
+                    <td>{{item.id}}</td>
+                    <td>{{item.cust_id_id}}</td>
+                    <td>
+                        {%for cust in customer%}
+                        {%if cust.id == item.cust_id_id%}
+                        {{cust.customer_name}}
+                        {%endif%}
+                        {%endfor%}
+                    </td>
+                    <td>
+                        {%for mbsp in cmbsp %}
+                        {%if mbsp.custid_id == item.cust_id_id%}
+                        {{mbsp.id}}
+                        {% else %}
+                        None
+                        {%endif%}
+                        {%endfor%}
+                    </td>
+                    <td>
+                        {%for order in orders%}
+                        {%if order.inv_id_id == item.id%}
+                        {{order.service}}
+                        {%endif%}
+                        {%endfor%}
+                    </td>
+
+                    <td>{{item.date}}</td>
+                    <td>{{item.due_date}}</td>
+                    <td>
+                        {% if item.payment_type == 0 %}
+                        Pending
+
+                        {% elif item.payment_type == 1 %}
+                        Cash
+                        {% elif item.payment_type == 2 %}
+                        Card
+                        {% elif item.payment_type == 3 %}
+                        Bank
+                        {% elif item.payment_type == 4 %}
+                        Gpay
+
+                        {% endif %}
+                    </td>
+                    <td>{{item.payment_status}}</td>
+                    <td>{{item.total_piece}}</td>
+                    <td>{{item.price}}</td>
+                    <td>{{item.discount}}</td>
+                    <td>{{item.net}}</td>
+                    <td>{{item.payment_due}}</td>
+                    <td>{{item.paid}}</td>
+                    <td>{{item.m_price}}</td>
+                    <td>{{item.m_point}}</td>
+                    <td>
+                        <button style="border: none;">
+                            <a href="{%url 'order:detail' item.id%}">
+                                <i class="mdi mdi-eye"></i>
+                            </a>
+                        </button>
+                    </td>
+                </tr>
+                {%endif%}
+                {%endfor%}
+
+            </tbody>
+
+        </table>
+    </div>
+
+
+
+
+
+
+    
+    <!-- partial:partials/_navbar.html -->
+    <h3 class="my-5">Cuurent Month Orders</h3>
+    <div class="col-md-12 bg-white p-4  shadow" style="border-radius: 10px;">
+        <table id="example6"   data-order='[[ 0, "desc" ]]' class="table table-hover table-bordered " style="width:100%">
+            <thead>
+                <tr>
+                    <th>Inv ID</th>
+                    <th>Cust ID</th>
+                    <th>Name</th>
+                    <th>Membership ID</th>
+                    <th>Service</th>
+                    <th data-class-name="priority">Date</th>
+                    <th>Due Date</th>
+                    <th>Payment Type</th>
+                    <th>Payment Status</th>
+                    <th>Total pic</th>
+                    <th>Price</th>
+                    <th>Discount</th>
+                    <th>Net</th>
+                    <th>Payment Due</th>
+                    <th>Paid</th>
+                    <th>M Price</th>
+                    <th>M Point</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td>Totals</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tfoot>
+            <tbody>
+                {%for item in current_month_orders %}
+                {%if item.cancel != 1 %}
+                <tr>
+                    <td>{{item.id}}</td>
+                    <td>{{item.cust_id_id}}</td>
+                    <td>
+                        {%for cust in customer%}
+                        {%if cust.id == item.cust_id_id%}
+                        {{cust.customer_name}}
+                        {%endif%}
+                        {%endfor%}
+                    </td>
+                    <td>
+                        {%for mbsp in cmbsp %}
+                        {%if mbsp.custid_id == item.cust_id_id%}
+                        {{mbsp.id}}
+                        {% else %}
+                        None
+                        {%endif%}
+                        {%endfor%}
+                    </td>
+                    <td>
+                        {%for order in orders%}
+                        {%if order.inv_id_id == item.id%}
+                        {{order.service}}
+                        {%endif%}
+                        {%endfor%}
+                    </td>
+
+                    <td>{{item.date}}</td>
+                    <td>{{item.due_date}}</td>
+                    <td>
+                        {% if item.payment_type == 0 %}
+                        Pending
+
+                        {% elif item.payment_type == 1 %}
+                        Cash
+                        {% elif item.payment_type == 2 %}
+                        Card
+                        {% elif item.payment_type == 3 %}
+                        Bank
+                        {% elif item.payment_type == 4 %}
+                        Gpay
+
+                        {% endif %}
+                    </td>
+                    <td>{{item.payment_status}}</td>
+                    <td>{{item.total_piece}}</td>
+                    <td>{{item.price}}</td>
+                    <td>{{item.discount}}</td>
+                    <td>{{item.net}}</td>
+                    <td>{{item.payment_due}}</td>
+                    <td>{{item.paid}}</td>
+                    <td>{{item.m_price}}</td>
+                    <td>{{item.m_point}}</td>
+                    <td>
+                        <button style="border: none;">
+                            <a href="{%url 'order:detail' item.id%}">
+                                <i class="mdi mdi-eye"></i>
+                            </a>
+                        </button>
+                    </td>
+                </tr>
+                {%endif%}
+                {%endfor%}
+
+            </tbody>
+
+        </table>
+    </div>
+
+
+
+</div>
+
+
+
+
+<script>
+    $(document).ready(function () {
+        // DataTable initialisation
+        $('#example4').DataTable(
+            {
+                "scrollX": true,
+                "aLengthMenu": [
+                    [50, 100, 500, -1],
+                    [50, 100, 500, "All"]
+                ],
+                "iDisplayLength": 50,
+                "language": {
+                    search: ""
+                },
+                dom: 'lBfrtip',
+                buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print'
+                ],
+                "footerCallback": function (row, data, start, end, display) {
+                    var api = this.api();
+                    nb_cols = api.columns().nodes().length;
+                    var j = 3;
+                    while (j < nb_cols) {
+                        var pageTotal = api
+                            .column(j, { page: 'current' })
+                            .data()
+                            .reduce(function (a, b) {
+                                return Number(a) + Number(b);
+                            }, 0);
+                        // Update footer
+                        $(api.column(j).footer()).html(pageTotal);
+                        j++;
+                    }
+                }
+            }
+        );
+    });
+</script>
+
+
+<script>
+    $(document).ready(function () {
+        // DataTable initialisation
+        $('#example5').DataTable(
+            {
+                "scrollX": true,
+                "aLengthMenu": [
+                    [50, 100, 500, -1],
+                    [50, 100, 500, "All"]
+                ],
+                "iDisplayLength": 50,
+                "language": {
+                    search: ""
+                },
+                dom: 'lBfrtip',
+                buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print'
+                ],
+                "footerCallback": function (row, data, start, end, display) {
+                    var api = this.api();
+                    nb_cols = api.columns().nodes().length;
+                    var j = 3;
+                    while (j < nb_cols) {
+                        var pageTotal = api
+                            .column(j, { page: 'current' })
+                            .data()
+                            .reduce(function (a, b) {
+                                return Number(a) + Number(b);
+                            }, 0);
+                        // Update footer
+                        $(api.column(j).footer()).html(pageTotal);
+                        j++;
+                    }
+                }
+            }
+        );
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        // DataTable initialisation
+        $('#example6').DataTable(
+            {
+                "scrollX": true,
+                "aLengthMenu": [
+                    [50, 100, 500, -1],
+                    [50, 100, 500, "All"]
+                ],
+                "iDisplayLength": 50,
+                "language": {
+                    search: ""
+                },
+                dom: 'lBfrtip',
+                buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print'
+                ],
+                "footerCallback": function (row, data, start, end, display) {
+                    var api = this.api();
+                    nb_cols = api.columns().nodes().length;
+                    var j = 3;
+                    while (j < nb_cols) {
+                        var pageTotal = api
+                            .column(j, { page: 'current' })
+                            .data()
+                            .reduce(function (a, b) {
+                                return Number(a) + Number(b);
+                            }, 0);
+                        // Update footer
+                        $(api.column(j).footer()).html(pageTotal);
+                        j++;
+                    }
+                }
+            }
+        );
+    });
+</script>
+{% endblock %}

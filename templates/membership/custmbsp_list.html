@@ -1,0 +1,184 @@
+{% extends 'base.html' %}
+{% load static %}
+  {%block content%}
+  <div class="container-scroller">
+    <!-- partial:partials/_navbar.html -->
+      <h2 class="mt-5">Customer Membership</h2>
+          <!-- <button class="col-lg-3 btn  btn-gradient-success fs-5   my-4 "><a class="text-white" href="" style="text-decoration: none;"> + Add Membership</a></button> -->
+          <a href="{% url 'membership:cmbsp-create'%}"><button class="btn btn-gradient-success my-4 fs-5">+ Add Membership</button></a>
+          <!-- *********************************************unpaid Table**************************** -->
+          <div class="col-md-12 grid-margin stretch-card  table-responsive bg-white p-3  shadow d-flex flex-column"
+            style="border-radius: 10px;">
+
+            <table id="example1" class="table table-hover table-bordered display" style="width:100%">
+              <thead>
+                <tr>
+
+                  <th>Cmbsp Id</th>
+                <th>Cust Id</th>
+                <th>Ms Id</th>
+                <th>Date</th>
+                <th>EX Date</th>
+                <th>Price</th>
+                <th>Point</th>
+                <th>Day Ex</th>
+                <th>Validity</th>
+                <th>Mbsp Amount</th>
+                <th>Service</th>
+                  <th>Action</th>
+
+
+                </tr>
+              </thead>
+              <tbody>
+                {% for cmbsp in cmbsp_data %}
+        
+            <tr>
+              <td>{{ cmbsp.id}}</td>
+                <td>{{ cmbsp.custid_id}}</td>
+                <td>{{ cmbsp.msid_id}}</td>                
+                <td>{{ cmbsp.date}}</td>
+                <td>{{ cmbsp.ex_date}}</td>
+                <td>{{ cmbsp.avl_price}}</td>
+                <td>{{ cmbsp.avl_point}}</td>
+                <td>{{ cmbsp.day_ex}}</td>
+                {% for  item in mbsp %}
+                    {% if item.id ==  cmbsp.msid_id %}
+                        <td>{{ item.validity}}</td>
+                        <td>{{ item.mbsp_amount}}</td>
+                        <td>{{ item.service}}</td>
+                    {% endif %}
+        {% endfor %}
+        <td>
+          <button style="border: none;">
+            <a href="{% url 'mbsp:cmbsp-detail' cmbsp.id %}">
+              <i class="mdi mdi-eye"></i>
+            </a>
+          </button>
+          <button style="border: none;">
+            <a href="{% url 'mbsp:cmbsp-update' cmbsp.id %}">
+              <i class="mdi mdi-border-color"></i>
+            </a>
+          </button>
+          
+          <button style="border: none;">
+            <a href="{% url 'mbsp:cmbsp-delete' cmbsp.id %}">
+              <i class="mdi mdi-delete"></i>
+            </a>
+          </button>
+        </td>
+                <!-- <td>
+                    <button><a href="{% url 'mbsp:cmbsp-delete' cmbsp.id %}">Delete</a></button>
+                    <button><a href="{% url 'mbsp:cmbsp-detail' cmbsp.id %}">Detail</a></button>
+                </td> -->
+            </tr>
+       
+        
+        
+        {%endfor%}
+               
+              </tfoot>
+            </table>
+          </div>
+          <!-- partial -->
+        </div>
+        <!-- page-body-wrapper ends -->
+      </div>
+      <!-- container-scroller -->
+      <!-- plugins:js -->
+      <!-- <script src="../../assets/vendors/js/vendor.bundle.base.js"></script> -->
+      <!-- endinject -->
+      <!-- Plugin js for this page -->
+      <!-- End plugin js for this page -->
+      <!-- inject:js -->
+
+      <!-- endinject -->
+    
+      {% endblock %}
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+    
+        <table> 
+            <tr>
+                <th>Cmbsp Id</th>
+                <th>Cust Id</th>
+                <th>Ms Id</th>
+                <th>Date</th>
+                <th>EX Date</th>
+                <th>Price</th>
+                <th>Point</th>
+                <th>Day Ex</th>
+                <th>Validity</th>
+                <th>Mbsp Amount</th>
+                <th>Service</th>
+            </tr>
+        {% for cmbsp in cmbsp_data%}
+        
+            <tr>
+                <td>{{ cmbsp.id}}</td>
+                <td>{{ cmbsp.custid_id}}</td>
+                <td>{{ cmbsp.msid_id}}</td>                
+                <td>{{ cmbsp.date}}</td>
+                <td>{{ cmbsp.ex_date}}</td>
+                <td>{{ cmbsp.avl_price}}</td>
+                <td>{{ cmbsp.avl_point}}</td>
+                <td>{{ cmbsp.day_ex}}</td>
+                {% for  item in mbsp %}
+                    {% if item.id ==  cmbsp.msid_id %}
+                        <td>{{ item.validity}}</td>
+                        <td>{{ item.mbsp_amount}}</td>
+                        <td>{{ item.service}}</td>
+                    {% endif %}
+        {% endfor %}
+                <td>
+                    <button><a href="{% url 'mbsp:cmbsp-delete' cmbsp.id %}">Delete</a></button>
+                    <button><a href="{% url 'mbsp:cmbsp-detail' cmbsp.id %}">Detail</a></button>
+                </td>
+            </tr>
+       
+        
+        
+        {%endfor%}
+    </table>
+        <ul>
+            <li class="page-item {% if not cmbsp_data.has_previous %} disabled {% endif %}">
+                <a href="{% if cmbsp_data.has_previous %} {% url 'mbsp:cmbsp-list' cmbsp_data.previous_page_number %}{% endif %} ">Previous</a>
+            </li>
+      
+            {% if cmbsp_data.number|add:'-1' > 1 %}
+                <li><a>&hellip;</a></li>
+            {% endif %}
+      
+            {% for i in cmbsp_data.paginator.page_range %}
+                {% if cmbsp_data.number == i %}
+                    <li href="#">{{ i }}</a></li>
+                {% elif i > cmbsp_data.number|add:'-2' and i < cmbsp_data.number|add:'2' %}
+                    <li><a href="{% url 'mbsp:cmbsp-list' i %}">{{ i }}</a></li>
+                {% endif %}
+            {% endfor %}
+      
+            {% if cmbsp_data.paginator.num_pages > cmbsp_data.number|add:'1' %}
+                <li><a href="#">&hellip;</a></li>
+            {% endif %}
+      
+            <li class="page-item {% if not cmbsp_data.has_next %} disabled {% endif %}">
+                <a class="page-link" href="{% if cmbsp_data.has_next %} {% url 'mbsp:cmbsp-list' cmbsp_data.next_page_number %} {% endif %}">Next</a>
+            </li>
+        </ul>
+     -->

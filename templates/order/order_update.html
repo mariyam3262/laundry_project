@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="content-wrapper">
+
+    <h2>Orders</h2>
+    {%for items in order%}
+    <form method="post" class="p-3 ">
+        {% csrf_token %}
+        <div class="row mt-3">
+            <div class="col-lg-4">
+
+                <label style="" class="my-2 fw-bold">Type</label>
+                <select class="form-control bg-light" id="type{{items.id}}" name="type" onchange="add_price({{items.id}})">
+                    {% if order %}
+                    <option value="{{items.cust_type}}">{{items.cust_type}}</option>
+
+                    {% endif %}
+                    {% for item in cust_type %}
+                    <option value="{{item}}">{{item}}</option>
+
+                    {% endfor %}
+                </select>
+
+            </div>
+            <div class="col-lg-4">
+
+                <label style="" class="my-2 fw-bold">Service</label>
+                <select class="form-control bg-light" id="services{{items.id}}" name="service" onchange="add_price({{items.id}})">
+                    {% if order %}
+                    <option value="{{items.service}}">{{items.service}}</option>
+
+                    {% endif %}
+                    {% for item in service %}
+                    <option value="{{item}}">{{item}}</option>
+
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-lg-4">
+
+                <label style="" class="my-2 fw-bold">Product</label>
+                <select class="form-control bg-light" id="product{{items.id}}" name="product" onchange="add_price({{items.id}})">
+                    {% if order %}
+                    <option value="{{items.product}}">{{items.product}}</option>
+
+                    {% endif %}
+                    {% for item in product %}
+                    <option value="{{item}}">{{item}}</option>
+
+                    {% endfor %}
+                </select>
+            </div>
+
+
+        </div>
+
+
+        <div class="row">
+            <div class="col-lg-4">
+
+                <label class="my-2 fw-bold">Price</label>
+                <input type="number" class="form-control bg-light" name="price" id="price{{items.id}}" value="{{items.ind_price}}">
+            </div>
+            <div class="col-lg-4">
+
+                <label class="my-2 fw-bold">Num of item</label>
+                <input type="number" class="form-control bg-light" name="num_item" oninput="total_prices({{items.id}})" id="peice{{items.id}}" value="{{items.no_item}}">
+
+            </div>
+            <div class="col-lg-4">
+
+                <label class="my-2 fw-bold">Total Price</label>
+                <input type="number" id="total_price{{items.id}}" class="form-control bg-light" name="net_price" value="{{items.total_price}}">
+
+            </div>
+
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-lg-12 mb-3">
+
+                <label class="my-2 fw-bold">Remark</label>
+                <input type="text" class="form-control bg-light" name="remark" value="{{items.remarks}}">
+            </div>
+
+
+
+        </div>
+
+
+        <script>
+
+            function add_price($item_id) {
+                $type = $('#type'+$item_id).val();
+                $service = $('#services'+$item_id).val();
+                $product = $('#product'+$item_id).val();
+                console.log($type, $service, $product);
+                $.ajax({
+                    url: "{% url 'order:add_price' %}",
+                    data: {
+                        type: $type,
+                        service: $service,
+                        product: $product,
+                        csrfmiddlewaretoken: '{{ csrf_token }}'
+                    },
+                    type: 'POST',
+                    success: function (response) {
+                        var instance = JSON.parse(response["price"]);
+                        console.log(instance);
+                        $("#price"+$item_id).val(instance);
+                        $peice = $('#peice'+$item_id).val();
+                        $total_price = $peice * instance;
+                        $("#total_price"+$item_id).val($total_price);
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            };
+        </script>
+        <script>
+            function total_prices($item_id) {
+                $peice = $('#peice'+$item_id).val();
+                $price = $("#price"+$item_id).val();
+                console.log($peice * $price);
+                $total_price = $peice * $price;
+                $("#total_price"+$item_id).val($total_price);
+            }
+        </script>
+        {%endfor%}
+        <div class="row">
+            <div class="col-lg-3">
+                <input type="submit" class="btn btn-gradient-success" value="Submit">
+            </div>
+
+            <div class="col-lg-3">
+                <button class="btn btn-danger"><a href="{% url 'order:emptylist'%}"
+                        style="color: #fff !important;">Clear</a></button>
+            </div>
+        </div>
+    </form>
+
+</div>
+
+{%endblock%}

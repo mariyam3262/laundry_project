@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% load static %}
+{%block content%}
+<div  class="row py-5 content-wrapper">
+<div class="col-12">
+<h3 class="my-5">Create user</h3>
+</div>
+
+          <h1>{{cust_detail.customer_name}}</h1>
+          <div>
+          <a href="{%url 'customer:update' cust_detail.id %}"><button class=" btn  btn-behance  my-4 p-2 "> update</button></a>
+          <a href="{%url 'customer:delete' cust_detail.id%}"><button class=" btn    my-4 p-2 text-white" style="background-color: red;"> Delete
+          </button></a>
+          <a href="{%url 'customer:create' %}"><button class=" btn  btn-behance  my-4 p-2 "> create order</button></a>
+        </div>
+      
+          <div class="col-md-12 grid-margin stretch-card  table-responsive bg-white p-3  shadow"
+            style="border-radius: 10px;">
+
+          
+            <table class="table  table-striped">
+          
+                <tbody>
+                  <tr>
+                    <th scope="row">Id</th>
+                    <td>{{cust_detail.id}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Name</th>
+                    <td>{{cust_detail.customer_name}}</td>
+                   
+                  </tr>
+                  <tr>
+                    <th scope="row">Mobile No</th>
+                    <td>+{{cust_detail.mobile}}</td>
+                    
+                  </tr>
+                  <tr>
+                    <th scope="row">Address</th>
+                    <td>{{cust_detail.address}}</td>
+                    
+                  </tr>
+                  <tr>
+                    <th scope="row">Location</th>
+                    <td>{{cust_detail.location}}</td>
+                    
+                  </tr>
+                  <tr>
+                    <th scope="row">Email</th>
+                    <td>{{cust_detail.email}}</td>
+                    
+                  </tr>
+                  <tr>
+                    <th scope="row">Pincode</th>
+                    <td>{{cust_detail.pincode}}</td>
+                    
+                  </tr>
+                  <tr>
+                    <th scope="row">Dob</th>
+                    <td>{{cust_detail.dob}}</td>
+                    
+                  </tr>
+                  
+                  <tr>
+                    <th scope="row">Otp</th>
+                    <td>{{cust_detail.otp}}</td>
+                    
+                  </tr>
+                  <tr>
+                    <th scope="row">Service</th>
+                    <td>{{cust_detail.customer_service}}</td>
+                    
+                  </tr>
+                </tbody>
+              </table>
+          
+          </div>
+
+
+
+
+
+
+
+
+
+
+          <!-- partial -->
+        </div>
+        <!-- page-body-wrapper ends -->
+      </div>
+      
+{% endblock content %}

@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{%block content%}
+<div class="container-scroller content-wrapper">
+    <!-- partial:partials/_navbar.html -->
+
+    <h2 class="mt-5">Message</h2>
+<a href="{%url 'notifications:what_update' %}"><button class=" btn  btn-behance  my-3 p-2 "> update</button></a>
+
+
+<div class="col-md-12 grid-margin stretch-card  table-responsive bg-white p-3  shadow"
+  style="border-radius: 10px;">
+
+
+  <table class="table  table-striped">
+
+      <tbody>
+        <tr>
+          <th scope="row">Message</th>
+          
+          <td>{{message.text}}</td>
+        </tr>
+      
+        
+      </tbody>
+    </table>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+<!-- partial -->
+</div>
+<!-- page-body-wrapper ends -->
+</div>
+{% endblock %}

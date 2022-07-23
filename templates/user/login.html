@@ -1,0 +1,12 @@
+{% extends 'user/index.html' %}
+{% block content %}
+
+    <h1>System Login</h1>
+    <form method="POST">
+         {% csrf_token %}
+        <!-- {{form.as_p}} -->
+        <label>UserName : </label><input type="text" name="uname" placeholder="username"><br>
+        <label>Password : </label><input type="password" name="pass" placeholder="password"><br> 
+        <button>Login</button>
+    </form>
+{% endblock %}

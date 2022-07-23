@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+{%block content%}
+<div class="container-scroller content-wrapper">
+    
+    <!-- *********************************************unpaid Table**************************** -->
+    <div class=" col-md-12 grid-margin stretch-card  table-responsive bg-white p-3  shadow d-flex flex-column"
+        style="border-radius: 10px;">
+        <h3 style="margin-left: 50px;" class="mb-5 ">Message</h3>
+        <table id="example" class="table table-hover table-bordered " style="width:100%">
+            <thead>
+                <tr>
+                    <th>Messsage</th>
+                    <th>Action</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{message.text}}</td>
+                    <td>
+                        <button style="border: none;">
+                          <a href="{%url 'notifications:what_view' %}">
+                            <i class="mdi mdi-eye"></i>
+                          </a>
+                        </button>
+                        <button style="border: none;">
+                          <a href="{%url 'notifications:what_update' %}">
+                            <i class="mdi mdi-border-color"></i>
+                          </a>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+
+        </table>
+    </div>
+    <!-- partial -->
+</div>
+<!-- page-body-wrapper ends -->
+</div>
+<!-- container-scroller -->
+<!-- plugins:js -->
+<!-- <script src="../../assets/vendors/js/vendor.bundle.base.js"></script> -->
+<!-- endinject -->
+<!-- Plugin js for this page -->
+<!-- End plugin js for this page -->
+<!-- inject:js -->
+
+<!-- endinject -->
+<!-- <script>
+    $(document).ready(function () {
+        $('#example').DataTable({
+
+            "scrollX": true
+        });
+    });
+
+</script> -->
+
+{% endblock %}

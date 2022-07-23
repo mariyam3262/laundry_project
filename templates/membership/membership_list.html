@@ -1,0 +1,151 @@
+{% extends 'base.html' %}
+{% load static %}
+{%block content%}
+    <div class="container-scroller ">
+         <!-- partial:partials/_navbar.html -->
+         
+         
+         <div class="container-scroller content-wrapper">
+            <!-- partial:partials/_navbar.html -->
+              <h2 class="mt-5">Membership Package</h2>
+              <a href="{% url 'membership:mbsp-create'%}"><button class="btn  btn-gradient-success fs-5  float-end my-4 col-lg-3">+Add Packaged</button></a>
+              <!-- *********************************************unpaid Table**************************** -->
+                <div class="col-md-12 grid-margin stretch-card  table-responsive bg-white p-3  shadow d-flex flex-column" style="border-radius: 10px;">
+                 
+                  <table id="example" class="table table-hover table-bordered " style="width:100%">
+                    <thead>
+                        <tr>
+                         
+                            <th>Mbs ID</th>
+                            <th>Mbsp Amount</th>
+                            <th>Service</th>
+                            <th>Price</th>
+                            <th>Point</th>
+                            <th>Validity</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                   <tbody>
+                    {%for mbsp in mbsp_detail %}
+                    <tr>
+                        <td>{{mbsp.id}}</td>
+                        <td>{{mbsp.mbsp_amount}}</td>
+                        <td>{{mbsp.service}}</td>
+                        <td>{{mbsp.price}}</td>
+                        <td>{{mbsp.point}}</td>
+                        <td>{{mbsp.validity}}</td>
+                        <td>
+                            <button style="border: none;">
+                              <a href="{% url 'mbsp:mbsp-detail' mbsp.id %}">
+                                <i class="mdi mdi-eye"></i>
+                              </a>
+                            </button>
+                            <button style="border: none;">
+                              <a href="{% url 'mbsp:mbsp-update' mbsp.id %}">
+                                <i class="mdi mdi-border-color"></i>
+                              </a>
+                            </button>
+                            
+                            <button style="border: none;">
+                              <a href="{% url 'mbsp:mbsp-delete' mbsp.id %}">
+                                <i class="mdi mdi-delete"></i>
+                              </a>
+                            </button>
+                          </td>
+                    </tr>
+                {%endfor%}
+                   </tbody>
+                   
+                </table>
+                </div>
+            <!-- partial -->
+          </div>
+      <!-- page-body-wrapper ends -->
+    </div>
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+    <!-- <script src="../../assets/vendors/js/vendor.bundle.base.js"></script> -->
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+   
+    <!-- endinject -->
+ 
+   {% endblock %}
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+            <h1 style="font-weight:bolder;font-size: large;">Membership Packaged</h1>
+            <button><a href="{%url 'mbsp:mbsp-create'%}">Add Customer</a></button>
+            <table>
+            <thead>
+                <tr>
+                    <th>Mbsp_id</th>
+                    <th>Mbsp_amount</th>
+                    <th>Service</th>
+                    <th>Price</th>
+                    <th>Point</th>
+                    <th>Validity</th>
+                </tr>
+            </thead>
+            <tbody>
+                {%for mbsp in mbsp_detail %}
+                    <tr>
+                        <td>{{mbsp.id}}</td>
+                        <td>{{mbsp.mbsp_amount}}</td>
+                        <td>{{mbsp.service}}</td>
+                        <td>{{mbsp.price}}</td>
+                        <td>{{mbsp.point}}</td>
+                        <td>{{mbsp.validity}}</td>
+                        <td>
+                            <button><a href="{%url 'mbsp:mbsp-detail' mbsp.id%}">Detail</a></button>
+                            <button><a href="{%url 'mbsp:mbsp-update' mbsp.id%}">Update</a></button>
+                            <button><a href="{%url 'mbsp:mbsp-delete' mbsp.id%}">Delete</a></button>
+                        </td>
+                    </tr>
+                {%endfor%}
+            </tbody>
+        </table>
+        <ul>
+            <li class="page-item {% if not mbsp_detail.has_previous %} disabled {% endif %}">
+                <a href="{% if mbsp_detail.has_previous %} {% url 'mbsp:mbsp-list' mbsp_detail.previous_page_number %}{% endif %} ">Previous</a>
+            </li>
+      
+            {% if mbsp_detail.number|add:'-1' > 1 %}
+                <li><a>&hellip;</a></li>
+            {% endif %}
+      
+            {% for i in mbsp_detail.paginator.page_range %}
+                {% if mbsp_detail.number == i %}
+                    <li href="#">{{ i }}</a></li>
+                {% elif i > mbsp_detail.number|add:'-2' and i < mbsp_detail.number|add:'2' %}
+                    <li><a href="{% url 'mbsp:mbsp-list' i %}">{{ i }}</a></li>
+                {% endif %}
+            {% endfor %}
+      
+            {% if mbsp_detail.paginator.num_pages > mbsp_detail.number|add:'1' %}
+                <li><a href="#">&hellip;</a></li>
+            {% endif %}
+      
+            <li class="page-item {% if not mbsp_detail.has_next %} disabled {% endif %}">
+                <a class="page-link" href="{% if mbsp_detail.has_next %} {% url 'mbsp:mbsp-list' mbsp_detail.next_page_number %} {% endif %}">Next</a>
+            </li>
+        </ul>
+    
+         -->

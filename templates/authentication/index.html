@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hooks & Hangers</title>
+</head>
+
+<body>
+
+    <h3>Hooks and Hangers</h3>
+
+    {% if user.is_authenticated %}
+    <h3>hello {{name}}</h3>
+    <h4>You're successfully logged in</h4>
+    <button type="submit">
+        <a href="{% url 'authentication:signout' %}">Sign Out</a>
+    </button>
+
+    {% else %}
+    <button type="submit">
+        <a href="/signin">Sign In</a>
+    </button>
+
+    <button type="submit">
+        <a href="/signup">Sign Up</a>
+    </button>
+
+    {% endif %}
+
+</body>
+
+</html>

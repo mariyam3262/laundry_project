@@ -1,0 +1,194 @@
+{% extends 'base.html' %}
+{% load static %}
+  {%block content%}
+  <div class="">
+    <div class="content-wrapper d-flex flex-column">
+        <h2 class="mt-lg-3  mt-5">Create User</h2>
+
+                    
+                  
+                    <!-- *********************************************customer table**************************** -->
+                  
+                    <div class="row " style="border: none;background-color: white;">
+                        <div class="col-lg-12 bg-light">
+                          <p class="mt-2">Fill Customer Detail</p>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <form method="post">
+                                {%csrf_token%}
+                          <div class="col-lg-6 mt-3">
+                           
+                                <label for="" class="mb-3">Custid</label>
+                                <select  name="cust_id" class="form-select " aria-label="Default select example">
+                                    <option>select Customer Detail</option>
+                                        {%for cust in customer%}
+                                            <option value="{{cust.id}}">{{cust.customer_name}}</option>
+                                        {%endfor%}
+                                </select>
+                           
+                            </div>
+                        
+                          <div class="col-lg-6 mt-3">
+                            
+                            <label for="" class="mb-3">Ms ID</label>
+                            <select id = "selectmbsp" name="msid" class="form-select " aria-label="Default select example">
+                                            <option>select Customer Detail</option>
+                            {%for mbsp in mbsp_detail%}
+                                <option value="{{mbsp.id}}">{{mbsp.price}}</option>
+                            {%endfor%}
+                            </select>
+                            <script
+                            src="https://code.jquery.com/jquery-3.5.1.js"
+                            integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+                            crossorigin="anonymous"
+                        ></script>
+                    
+                            <script>
+                                let usersData = [
+                                {% for item in mbsp_detail  %}
+                    
+                                    {
+                                        'id':{{ item.id }},
+                                        'point' : {{ item.point }},
+                                        'price' : {{ item.price }}                         
+                    
+                                    },
+                                {%endfor%}
+                    
+                                
+                                    ];
+                                    document.getElementById('selectmbsp').onchange = (e) => {
+                                    let selectedmbsp = usersData.find(userdata => userdata.id == e.target.value);
+                                    console.log(selectedmbsp);
+                                    document.getElementById('price').value = selectedmbsp.price;
+                                    document.getElementById('point').value = selectedmbsp.point;
+            
+                                };
+                            </script>
+            
+                          </div>
+                        </div>
+            
+                        <div class="row">
+                          <div class="col-lg-6 mt-3">
+                           
+                              <label class="my-2 fw-bold">Date</label>
+                              <input type="date" id="date" name="date" class="form-control"  value='{{date_date.date}}' >
+                           
+                          </div>
+                          <div class="col-lg-6 mt-3">
+                           
+                                <label class="my-2 fw-bold">Ex Date</label>
+                                <input type="date" name="ex_date" value="{{date_date.ex_date}}" class="form-control" >
+                        
+                          </div>
+                        </div>
+            
+                        <div class="row">
+                          <div class="col-lg-6 mt-3">
+                              <label class="my-2 fw-bold">Price</label>
+                              <input type="number"name="price" id="price" class="form-control" required>
+                           
+                          </div>
+                          <div class="col-lg-6 mt-3">
+                              <label class="my-2 fw-bold">Point</label>
+                              <input type="number"  name="point" id="point" class="form-control" required>
+                          </div>
+                         
+                          
+                        </div>
+                    
+                        <div class="col-lg-3">
+                          <button class="btn btn-secondary  ms-3 my-3" style="border-radius: 10px;">Submit</button>
+            
+                        </div>
+                      </div>
+                    </form>
+                    <!-- partial -->
+                </div>
+                <!-- page-body-wrapper ends -->
+            </div>
+            <!-- container-scroller -->
+            <!-- plugins:js -->
+            <!-- <script src="../../assets/vendors/js/vendor.bundle.base.js"></script> -->
+            <!-- endinject -->
+            <!-- Plugin js for this page -->
+            <!-- End plugin js for this page -->
+            <!-- inject:js -->
+
+            <!-- endinject -->
+           
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- ____________ -->
+<!-- 
+        <form method='post'>
+            {%csrf_token%}
+            CustId : <select name="cust_id">
+                <option>select Customer Detail</option>
+                {%for cust in customer%}
+                    <option value="{{cust.id}}">{{cust.customer_name}}</option>
+                {%endfor%}
+            </select>
+            Ms ID :  <select id = "selectmbsp" name="msid">
+                <option>select Customer Detail</option>
+                {%for mbsp in mbsp_detail%}
+                    <option value="{{mbsp.id}}">{{mbsp.price}}</option>
+                {%endfor%}
+                </select>
+    
+                <script
+                src="https://code.jquery.com/jquery-3.5.1.js"
+                integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+                crossorigin="anonymous"
+            ></script>
+        
+                <script>
+                    let usersData = [
+                    {% for item in mbsp_detail  %}
+        
+                        {
+                            'id':{{ item.id }},
+                            'point' : {{ item.point }},
+                            'price' : {{ item.price }}                         
+        
+                        },
+                    {%endfor%}
+        
+                    
+                        ];
+                        document.getElementById('selectmbsp').onchange = (e) => {
+                        let selectedmbsp = usersData.find(userdata => userdata.id == e.target.value);
+                        console.log(selectedmbsp);
+                        document.getElementById('price').value = selectedmbsp.price;
+                        document.getElementById('point').value = selectedmbsp.point;
+
+                    };
+                </script>
+                Date : <input type="date" name="date" value='{{date_date.date}}'>
+
+                Ex Date : <input type="date" name="ex_date" value="{{date_date.ex_date}}">
+
+                Price : <input type="number" name="price" id="price">
+                Point : <input type="number" name="point" id="point">
+                <input type="submit">
+
+        </form>
+
+         -->

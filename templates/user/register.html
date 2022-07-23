@@ -1,0 +1,15 @@
+{% extends 'user/index.html' %}
+{% block content %}
+   
+    <h1>Create New Account</h1>
+    <form method="POST">
+         {% csrf_token %}
+        <!-- {{form.as_p}} -->
+        <label>UserName : </label><input type="text" name="uname"><br>
+        <label>Password : </label><input type="text" name="pass" ><br>
+        <label>Again ,Password : </label><input type="text" name="c_pass" ><br>
+        <label>Mobile Number : </label><input type="number" name="mnum"><br>
+        <label>E-mail : </label><input type="text" name="email" ><br>
+        <button>Register</button>
+    </form>
+{% endblock %}

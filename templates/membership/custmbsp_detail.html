@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+    {% block content %}
+    <div  class="row py-5 content-wrapper">
+        <div class="col-12">
+        <h3 class="my-5">Create user</h3>
+        </div>
+        
+
+          <h1>{{cmbsp_data.id}}</h1>
+          <div>
+          <a href="{% url 'membership:cmbsp-update' cmbsp_data.id %}"><button class=" btn  btn-behance  my-3 p-2 "> update</button></a>
+          <a href="{% url 'membership:cmbsp-delete' cmbsp_data.id %}"><button class=" btn my-3    p-2 text-white" style="background-color: red;"> Delete
+          </button></a>
+        </div>
+      
+          <div class="col-md-12 grid-margin stretch-card  table-responsive bg-white p-3  shadow"
+            style="border-radius: 10px;">
+
+          
+            <table class="table  table-striped">
+          
+                <tbody>
+                  <tr>
+                    <th scope="row">Cmbsp Id</th>
+                    
+                    <td>{{cmbsp_data.id}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Cust Id</th>
+                    <td>{{cmbsp_data.custid_id}}</td>
+                   
+                  </tr>
+                  <tr>
+                    <th scope="row">Ms id</th>
+                    <td>{{cmbsp_data.msid_id}}</td>
+                    
+                  </tr>
+                  <tr>
+                    <th scope="row">Date</th>
+                    <td>{{cmbsp_data.date}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Ex Date</th>
+                    <td>{{cmbsp_data.ex_date}}</td>
+                    
+                  </tr>
+                  <tr>
+                    <th scope="row">Price</th>
+                    <td>{{cmbsp_data.avl_price}}</td>
+                    
+                  </tr>
+                  <tr>
+                    <th scope="row">Point</th>
+                    <td>{{cmbsp_data.avl_point}}</td>
+                    
+                  </tr>
+                  <tr>
+                    <th scope="row">Day Ex</th>
+                    <td>{{cmbsp_data.day_ex}}</td>
+                    
+                  </tr>
+                  
+                </tbody>
+              </table>
+          
+          </div>
+
+
+
+
+
+
+
+
+
+
+          <!-- partial -->
+        </div>
+        <!-- page-body-wrapper ends -->
+      </div>
+      
+            <!-- <button><a href="{% url 'mbsp:cmbsp-delete' cmbsp_data.id %}">Delete</a></button>
+            <button><a href="{% url 'mbsp:cmbsp-update' cmbsp_data.id %}">Update</a></button>
+            
+            <tr>
+                <th>Cmbsp Id</th>
+                <td>{{cmbsp_data.id}}</td>
+            </tr>
+            <tr>
+                <th>Cust Id</th>
+                <td>{{cmbsp_data.custid_id}}</td>
+            </tr>
+            <tr>
+                <th>Ms Id</th>
+                <td>{{cmbsp_data.msid_id}}</td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>{{cmbsp_data.date}}</td>
+            </tr>
+            <tr>
+                <th>Ex Date</th>
+                <td>{{cmbsp_data.ex_date}}</td>
+            </tr>
+            <tr>
+                <th>Price</th>
+                <td>{{cmbsp_data.avl_price}}</td>
+            </tr>
+            <tr>
+                <th>Point</th>
+                <td>{{cmbsp_data.avl_point}}</td>
+            </tr>
+            <tr>
+                <th>Ex Days</th>
+                <td>{{cmbsp_data.day_ex}}</td>
+            </tr> -->
+    {%endblock%}
+       

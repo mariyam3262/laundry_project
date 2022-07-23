@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+    {%block content%}
+    <div  class="row py-5 content-wrapper">
+        <div class="col-12">
+          <h3 class="my-4" style="margin-left: 20px;">Items</h3>
+        </div>
+              <a href="{% url 'invoice:create'%}"><button class="col-lg-3 btn  btn-gradient-success fs-5   my-4 "> + Add Item Price</button></a>
+              <!-- *********************************************unpaid Table**************************** -->
+                <div class="col-md-12 grid-margin stretch-card  table-responsive bg-white p-3  shadow d-flex flex-column" style="border-radius: 10px;">
+                 
+                  <table id="example" class="table table-hover table-bordered " style="width:100%">
+                    <thead>
+                        <tr>
+                        
+                            <th>IP ID</th>
+                            <th>Type</th>
+                            <th>Service</th>
+                            <th>Cloth Type</th>
+                            <th>Price</th>
+                            <th>Action</th>
+                            
+                        </tr>
+                    </thead>
+                   <tbody>
+                    {% for item in items%}
+               
+                    <tr>
+                         <td>{{ item.id }}</td>
+                         <td>{{ item.cust_type }}</td>
+                         <td>{{ item.service}}</td>
+                         <td>{{ item.cloth_type}}</td>
+                         <td>{{ item.price }}</td>
+                         <td>
+                            <button style="border: none;">
+                              <a href="{%url 'invoice:detail' item.id%}">
+                                <i class="mdi mdi-eye"></i>
+                              </a>
+                            </button>
+                            <button style="border: none;">
+                              <a href="{%url 'invoice:update' item.id%}">
+                                <i class="mdi mdi-border-color"></i>
+                              </a>
+                            </button>
+                            <button style="border: none;">
+                              <a href="{%url 'invoice:delete' item.id %}">
+                                <i class="mdi mdi-delete"></i>
+                              </a>
+                            </button>
+                          </td>
+                    </tr>  
+                    {%endfor%}
+                   </tbody>
+                   
+                </table>
+                </div>
+            <!-- partial -->
+          </div>
+      <!-- page-body-wrapper ends -->
+    </div>
+       
+    {%endblock content%}
+       

@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row content-wrapper">
+    <div class="col-lg-12 mb-5">
+        <div class="row">
+            <div class="col-lg-12 mb-4 w-100">
+                <label class="my-2 fw-bold"> Select Customer:</label>
+                <div class="dropdown text-start w-100">
+                    <button class="btn btn-secondary text-start dropdown-toggle w-100" type="button" id="dropdownMenuButton2"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Select Customer
+                    </button>
+                    <ul class="dropdown-menu w-100" aria-labelledby="dropdownMenuButton2" style="max-height:500px !important;
+                    overflow:scroll !important; ">
+                        <li>
+                            <div class="dropdown-item">
+                                <input type="text" class="form-control" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
+                            </div>
+                        </li>
+                        <div id="myUL" >
+
+                        {% for cust in customers %}
+                        <li id="li"><a id="a" class="dropdown-item" href="{% url 'order:add_order_to_cart' cust.id %}" style="color: #000 !important;">{{cust.customer_name}}</a></li>
+                        {% endfor %}
+                        </div>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+<script>
+    function myFunction() {
+        var input, filter, ul, li, a, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        ul = document.getElementById("myUL");
+        li = ul.getElementsByTagName("li");
+        for (i = 0; i < li.length; i++) {
+            a = li[i].getElementsByTagName("a")[0];
+            txtValue = a.textContent || a.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                li[i].style.display = "";
+            } else {
+                li[i].style.display = "none";
+            }
+        }
+    }
+    </script>
+{% endblock %}

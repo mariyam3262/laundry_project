@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+{% load static %}
+{%block content%}
+<div class="container-scroller">
+    <!-- partial:partials/_navbar.html -->
+    <h3 class="my-5">Orders</h3>
+    <div class="col-md-12 grid-margin stretch-card  table-responsive bg-white p-3  shadow" style="border-radius: 10px;">
+        <table id="example4" class="table table-hover table-bordered " style="width:100%">
+            <thead>
+                <tr>
+                    <th>Inv ID</th>
+                    <th>Cust ID</th>
+                    <th>Name</th>
+                    <th>Membership ID</th>
+                    <th>Service</th>
+                    <th>Date</th>
+                    <th>Due Date</th>
+                    <th>Payment Type</th>
+                    <th>Payment Status</th>
+                    <th>Total pic</th>
+                    <th>Price</th>
+                    <th>Discount</th>
+                    <th>Net</th>
+                    <th>Payment Due</th>
+                    <th>Paid</th>
+                    <th>M Price</th>
+                    <th>M Point</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td>Totals</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tfoot>
+            <tbody>
+                {%for item in invoice %}
+                {%if item.cancel == 1%}
+                <tr>
+                    <td>{{item.id}}</td>
+                    <td>{{item.cust_id_id}}</td>
+                    <td>
+                        {%for cust in customer%}
+                        {%if cust.id == item.cust_id_id%}
+                        {{cust.customer_name}}
+                        {%endif%}
+                        {%endfor%}
+                    </td>
+                    <td>
+                        {%for mbsp in cmbsp %}
+                        {%if mbsp.custid_id == item.cust_id_id%}
+                        {{mbsp.id}}
+                        {% else %}
+                            None
+                        {%endif%}
+                        {%endfor%}
+                    </td>
+                    <td>
+                        {%for order in orders%}
+                        {%if order.inv_id_id == item.id%}
+                        {{order.service}}
+                        {%endif%}
+                        {%endfor%}
+                    </td>
+                    <td>{{item.date}}</td>
+                    <td>{{item.due_date}}</td>
+                    <td>{{item.payment_type}}</td>
+                    <td>{{item.payment_status}}</td>
+                    <td>{{item.total_piece}}</td>
+                    <td>{{item.price}}</td>
+                    <td>{{item.discount}}</td>
+                    <td>{{item.net}}</td>
+                    <td>{{item.payment_due}}</td>
+                    <td>{{item.paid}}</td>
+                    <td>{{item.m_price}}</td>
+                    <td>{{item.m_point}}</td>
+                </tr>
+                {%endif%}
+                {%endfor%}
+
+            </tbody>
+
+        </table>
+    </div>
+</div>
+</div>
+<script>
+    $(document).ready(function () {
+        // DataTable initialisation
+        $('#example4').DataTable(
+            {
+                "scrollX": true,
+                dom: 'lBfrtip',
+                buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print'
+                ],
+                "footerCallback": function (row, data, start, end, display) {
+                    var api = this.api();
+                    nb_cols = api.columns().nodes().length;
+                    var j = 3;
+                    while (j < nb_cols) {
+                        var pageTotal = api
+                            .column(j, { page: 'current' })
+                            .data()
+                            .reduce(function (a, b) {
+                                return Number(a) + Number(b);
+                            }, 0);
+                        // Update footer
+                        $(api.column(j).footer()).html(pageTotal);
+                        j++;
+                    }
+                }
+            }
+        );
+    });
+</script>
+{% endblock %}

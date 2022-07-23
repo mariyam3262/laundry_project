@@ -1,0 +1,103 @@
+{%extends 'base.html'%}
+{%block content%}
+<div  class="row py-5 content-wrapper">
+    <div class="col-12">
+    <h3 class="my-1">detail user</h3>
+    </div>
+
+<h1>{{mbsp.id}}</h1>
+<div><a href="{% url 'membership:mbsp-update' mbsp.id %}"><button class=" btn  btn-behance  my-3 p-2 "> update</button></a>
+<a href="{% url 'membership:mbsp-delete' mbsp.id %}"><button class=" btn my-3    p-2 text-white" style="background-color: red;"> Delete
+</button></a>
+</div>
+
+
+<div class="col-md-12 grid-margin stretch-card  table-responsive bg-white p-3  shadow"
+  style="border-radius: 10px;">
+
+
+  <table class="table  table-striped">
+
+      <tbody>
+        <tr>
+          <th scope="row">Mbs Id</th>
+          
+          <td>{{mbsp.id}}</td>
+        </tr>
+        <tr>
+          <th scope="row">Mbsp Amount</th>
+          <td>{{mbsp.mbsp_amount}}</td>
+         
+        </tr>
+        <tr>
+          <th scope="row">Validity</th>
+          <td>{{mbsp.validity}}</td>
+          
+        </tr>
+        <tr>
+          <th scope="row">Price</th>
+          <td>{{mbsp.price}}</td>
+          
+        </tr>
+        <tr>
+          <th scope="row">Point</th>
+          <td>{{mbsp.point}}</td>
+          
+        </tr>
+        <tr>
+          <th scope="row">Service</th>
+          <td>{{mbsp.service}}</td>
+          
+        </tr>
+        
+      </tbody>
+    </table>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+<!-- partial -->
+</div>
+<!-- page-body-wrapper ends -->
+</div>
+
+            <!-- <h1 stype="font-size:10px">Detail</h1>
+            <h1>{{mbsp.id}}</h1>
+            <button><a href="{%url 'mbsp:mbsp-update' mbsp.id%}">Update</a></button>
+            <button><a href="{%url 'mbsp:mbsp-delete' mbsp.id%}">Delete</a></button>
+            
+                <tr>
+                    <th>Mbsp Id</th>
+                    <td>{{mbsp.id}}</td>
+                </tr>
+                <tr>
+                    <th>Mbsp Amount</th>
+                    <td>{{mbsp.mbsp_amount}}</td>
+                </tr>
+                <tr>
+                    <th>Validity</th>
+                    <td>{{mbsp.validity}}</td>
+                </tr>
+                <tr>
+                    <th>Price</th>
+                    <td>{{mbsp.price}}</td>
+                </tr>
+                <tr>
+                    <th>Point</th>
+                    <td>{{mbsp.point}}</td>
+                </tr>
+                <tr>
+                    <th>Service</th>
+                    <td>{{mbsp.service}}</td>
+                </tr> -->
+         
+        {%endblock%}
+   

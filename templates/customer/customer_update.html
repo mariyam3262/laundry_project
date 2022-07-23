@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{%block content%}
+<div class="container-scroller ">
+  <!-- partial:partials/_navbar.html -->
+
+
+
+  <!-- partial -->
+  <div class="main-panel content-wrapper">
+    <div class="content-wrapper d-flex flex-column">
+      <h2>Update</h2>
+      <div class="row " style="border: none;background-color: white;">
+        <div class="col-lg-12 bg-light">
+          <p class="mt-2">Update Your Detail</p>
+        </div>
+        <hr>
+        <form method="post">
+
+          {% csrf_token %}
+          <div class="row">
+            <div class="col-lg-3">
+
+              <label class="my-2 fw-bold">Name</label>
+              <input type="text" class="form-control" name="name" value="{{cust.customer_name}}" required>
+
+            </div>
+            <div class="col-lg-3">
+
+              <label class="my-2 fw-bold">Mobile No</label>
+              <input type="text" class="form-control" name="mobile" value="{{cust.mobile}}" required
+                pattern="[0-9]{10}">
+
+            </div>
+            <div class="col-lg-3">
+
+              <label class="my-2 fw-bold">Address</label>
+              <input type="name" class="form-control add" name="address" value="{{cust.address}}" required>
+              <p class="demo"></p>
+
+            </div>
+            <div class="col-lg-3">
+
+              <label class="my-2 fw-bold">Location</label>
+              <input type="name" class="form-control" name="location" value="{{cust.location}}" required>
+
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-3">
+
+              <label class="my-2 fw-bold">Email</label>
+              <input type="name" class="form-control" name="email" value="{{cust.email}} " required>
+
+            </div>
+            <div class="col-lg-3">
+
+              <label class="my-2 fw-bold">Pincode</label>
+              <input type="name" class="form-control" name="pincode" value="{{cust.pincode}}" required>
+
+            </div>
+            <div class="col-lg-3">
+
+              <label class="my-2 fw-bold">Dob</label>
+              <input type="date" class="form-control" name="dob" value='{{cust.dob|date:"Y-m-d"}}' required>
+
+            </div>
+            <div class="col-lg-3">
+
+              <label class="my-2 fw-bold">Membership ID</label>
+              <input type="name" class="form-control bg-light" name="msid" value="{{cust.memebership_id}}" value="0" readonly=""  required>
+
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-3">
+
+              <label class="my-2 fw-bold">Otp</label>
+              <input type="name" class="form-control bg-light" name="otp" value="{{cust.otp}}" value="0" readonly=""  required>
+
+            </div>
+            <div class="col-lg-3">
+
+              <label class="my-2 fw-bold">Service</label>
+              <input type="name" class="form-control bg-light" name="service" value="{{cust.customer_service}}" value="0" readonly="" 
+                required>
+
+            </div>
+            <div class="col-lg-3">
+
+              <label class="my-2 fw-bold">Status</label>
+              <input type="name" class="form-control bg-light" name="status" value="{{cust.customer_status}}"  value="0" readonly="" required>
+
+            </div>
+            <div class="col-lg-3">
+
+              <label class="my-2 fw-bold">Cust Type</label>
+              <input type="name" class="form-control bg-light" name="cust_type" value="{{cust.customer_type}}" value="0" readonly=""  required>
+
+            </div>
+          </div>
+          <div class="col-lg-3">
+            <button type="submit" class="btn btn-secondary  ms-3 my-3" style="border-radius: 10px;"
+              onclick="clicked()">Save</button>
+          </div>
+        </form>
+      </div>
+
+
+      <!-- partial -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+  {% endblock %}

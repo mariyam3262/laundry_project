@@ -1,0 +1,510 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="">
+    <div class="content-wrapper">
+
+        <h2>Orders</h2>
+ 
+<div class="row mt-4 gx-5">
+    <div class="col-lg-8">
+        <div class="row" style="border: none;background-color: white;">
+            <div style="border-bottom: 1px solid rgb(144, 143, 143);">
+                <p class="p-4 fs-5">Fill Customer Detail</p>
+            </div>
+            <form method="post" class="p-3" style="width:100%;">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-lg-4">
+                        <label class="my-2 fw-bold"> Select :</label>
+                        <select class="form-control" name="customer_name" id="userselect" placeholder="SELECT-TYPE">
+                            
+                            {% if carts %}
+                            {% for cust in customer %}
+                            {% if carts.cust_id_id == cust.id %}
+                            <option value="{{cust.id}}">{{cust.customer_name}}</option>
+                            {% endif %}
+                            {% endfor %}
+                            
+                            {% else %}
+                            <option>select-user</option>
+                            {% for cust in customer %}
+                            <option value="{{cust.id}}">{{cust.customer_name}}</option>
+
+                            {% endfor %}
+                            {% endif %}
+
+                        </select>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-lg-4">
+
+                            <label class="my-2 fw-bold">Name </label>
+                            <input type="text" class="form-control bg-light" name="name" id="name" 
+                            {% if carts %}
+                            {% for cust in customer %}
+                            {% if carts.cust_id_id == cust.id %}
+                            value="{{cust.customer_name}}"
+                            {% endif %}
+                            {% endfor %}
+                            {% endif %}>
+
+                        </div>
+                        <div class="col-lg-4">
+
+                            <label class="my-2 fw-bold">Email </label>
+                            <input type="email" class="form-control bg-light" name="email" id="emailfield"
+                            {% if carts %}
+                            {% for cust in customer %}
+                            {% if carts.cust_id_id == cust.id %}
+                            value="{{cust.email}}"
+                            {% endif %}
+                            {% endfor %}
+                            {% endif %}
+                            >
+
+                        </div>
+                        <div class="col-lg-4">
+
+                            <label class="my-2 fw-bold">Phone </label>
+                            <input type="number" class="form-control bg-light" name="phone" id="phone" {% if carts %}
+                            {% for cust in customer %}
+                            {% if carts.cust_id_id == cust.id %}
+                            value="{{cust.mobile}}"
+                            {% endif %}
+                            {% endfor %}
+                            {% endif %}>
+                            <p class="demo"></p>
+                        </div>
+
+
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <label class="my-2 fw-bold">dob</label>
+                            <input type="datetime" class="form-control bg-light" name="dob" id="dob" {% if carts %}
+                            {% for cust in customer %}
+                            {% if carts.cust_id_id == cust.id %}
+                            value="{{cust.dob}}"
+                            {% endif %}
+                            {% endfor %}
+                            {% endif %}>
+
+                        </div>
+                        <div style="" class="col-lg-4">
+
+                            <label class="my-2 fw-bold">Address</label>
+                            <input type="text" class="form-control bg-light" name="address" id="address" 
+                            {% if carts %}
+                            {% for cust in customer %}
+                            {% if carts.cust_id_id == cust.id %}
+                            value="{{cust.address}}"
+                            {% endif %}
+                            {% endfor %}
+                            {% endif %}>
+
+                        </div>
+                        <div style="" class="col-lg-4">
+
+                            <label class="my-2 fw-bold">location</label>
+                            <input type="text" class="form-control bg-light" name="location" id="location"
+                            {% if carts %}
+                            {% for cust in customer %}
+                            {% if carts.cust_id_id == cust.id %}
+                            value="{{cust.location}}"
+                            {% endif %}
+                            {% endfor %}
+                            {% endif %}>
+
+                        </div>
+                    </div>
+                    <div class="row mt-6">
+                        <div style="" class="col-lg-4">
+
+                            <label class="my-2 fw-bold">pincode</label>
+                            <input type="text" class="form-control bg-light" name="pincode" id="pin" {% if carts %}
+                            {% for cust in customer %}
+                            {% if carts.cust_id_id == cust.id %}
+                            value="{{cust.pincode}}"
+                            {% endif %}
+                            {% endfor %}
+                            {% endif %}>
+
+                        </div>
+                        <div style="" class="col-lg-4">
+
+                            <label class="my-2 fw-bold">membership</label>
+                            <input type="text" class="form-control bg-light" name="mbsp" id="mbsp">
+
+                        </div>
+                        <div style="" class="col-lg-4">
+                            <label class="my-2 fw-bold">service</label>
+                            <input type="text" class="form-control bg-light" name="service" id="service"{% if carts %}
+                            {% for cust in customer %}
+                            {% if carts.cust_id_id == cust.id %}
+                            value="{{cust.customer_service}}"
+                            {% endif %}
+                            {% endfor %}
+                            {% endif %}>
+
+                        </div>
+                    </div>
+                    <script src="https://code.jquery.com/jquery-3.5.1.js"
+                        integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+                        crossorigin="anonymous"></script>
+
+                    <script>
+                        let usersData = [
+                            {% for cust in customer %}
+
+                        {
+                            'id': {{ cust.id }},
+                            'name': "{{cust.customer_name}}",
+                                'email': "{{cust.email}}",
+                                    'phone': "{{cust.mobile}}",
+                                        'dob': "{{cust.dob}}",
+                                            'address': "{{cust.address}}",
+                                                'location': "{{cust.location}}",
+                                                    'pincode': "{{cust.pincode}}",
+                                                        'mbsp': "{{cust.membership}}",
+                                                            'service': "{{cust.customer_service}}"
+
+                        },
+                        {% endfor %}
+                            
+                                           
+                                        ];
+                        document.getElementById('userselect').onchange = (e) => {
+                            let selectedUser = usersData.find(userdata => userdata.id == e.target.value);
+                            console.log(selectedUser);
+                            document.getElementById('name').value = selectedUser.name;
+                            document.getElementById('emailfield').value = selectedUser.email;
+                            document.getElementById('phone').value = selectedUser.phone;
+                            document.getElementById('dob').value = selectedUser.dob;
+                            document.getElementById('address').value = selectedUser.address;
+                            document.getElementById('location').value = selectedUser.location;
+                            document.getElementById('pin').value = selectedUser.pincode;
+                            document.getElementById('mbsp').value = selectedUser.mbsp;
+                            document.getElementById('service').value = selectedUser.service;
+
+
+                        };
+                    </script>
+
+
+
+
+
+
+
+                    <div style="" class="col-lg-12 " style="border: none;background-color: white;">
+                        <div class="col-lg-12 bg-light mt-5" style="border-bottom: 1px solid rgb(144, 143, 143);">
+                            <p class="p-2 fs-5">Select Your Order</p>
+                        </div>
+                        <form method="post" class="p-3 ">
+                            {% csrf_token %}
+                            <div class="row mt-3">
+                                <div class="col-lg-4">
+
+                                    <label style="" class="my-2 fw-bold">Type</label>
+                                    <select class="form-control bg-light" id="type" name="type" onchange="add_price()">
+                                        <option name="type" value="">SELECT-TYPE</option>
+                                        {% for item in cust_type %}
+                                        <option value="{{item}}">{{item}}</option>
+
+                                        {% endfor %}
+                                    </select>
+
+                                </div>
+                                <div class="col-lg-4">
+
+                                    <label style="" class="my-2 fw-bold">Service</label>
+                                    <select class="form-control bg-light" id="services" name="service" onchange="add_price()">
+                                        <option name="service" value="">SELECT-SERVICE</option>
+                                        {% for item in service %}
+                                        <option value="{{item}}">{{item}}</option>
+
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="col-lg-4">
+
+                                    <label style="" class="my-2 fw-bold">Product</label>
+                                    <select class="form-control bg-light" id="product" name="product" onchange="add_price()">
+                                        <option name="product" value="">SELECT-PRODUCT</option>
+                                        {% for item in product %}
+                                        <option value="{{item}}">{{item}}</option>
+
+                                        {% endfor %}
+                                    </select>
+                                </div>
+
+
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-lg-4">
+
+                                    <label class="my-2 fw-bold">Price</label>
+                                    <input name="price" class="form-control bg-light" type="number" id="price" required>
+
+                                </div>
+                                <div class="col-lg-4">
+
+                                    <label class="my-2 fw-bold">Num of item</label>
+                                    <input name="num_item" class="form-control bg-light" type="number" oninput="total_prices()" id="peice" required>
+
+                                </div>
+                                <div class="col-lg-4">
+
+                                    <label class="my-2 fw-bold">Total Price</label>
+                                    <input type="number" id="total_price" class="form-control bg-light" name="net_price" required>
+
+                                </div>
+
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-lg-12 mb-3">
+
+                                    <label class="my-2 fw-bold">Remark</label>
+                                    <input class="form-control bg-light" name="remark" type="text" required>
+
+                                </div>
+
+                                <div class="col-lg-3">
+                                    <input type="submit" class="btn btn-gradient-success" value="Submit">
+                                </div>
+
+                                <div class="col-lg-3">
+                                    <button class="btn btn-danger"><a href="{% url 'order:emptylist'%}"
+                                            style="color: #fff !important;">Clear</a></button>
+                                </div>
+
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+        </div>
+    </div>
+    <div class="col-lg-4 bg-white">
+        <div style="border: none;background-color: white;">
+
+
+            <form method="post" action="{%url 'order:save_order'%}">
+                {%csrf_token%}
+               {% if carts %}
+               <h1 name="cust_name">{{ datas.name }}</h1>
+
+               {% endif %}
+                <div class="bg-white">
+                    <div class="row">
+                        <div class="col-lg-12 bg-light" style="border-bottom: 1px solid grey;">
+                            <p class="p-4 fs-5">Credit Card</p>
+                        </div>
+                        <div class="col-lg-12">
+                            <label class="my-2 fw-bold"> Date</label>
+                            <input type="datetime"  class="form-control bg-light" id="date" name="date" value="{{datas.date}}">
+                        </div>
+    
+                        <div class="col-lg-12">
+                            <label class="my-2 fw-bold">Due Date</label>
+                            <input type="datetime"  class="form-control bg-light" id="date" name="due_date" value="{{datas.due_date}}">
+                        </div>
+    
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <label class="my-2 fw-bold ">No. Pic</label>
+                                <input class="form-control bg-light" id="text" type="number" name="no_pic" value="{{datas.no_item}}">
+    
+                            </div>
+    
+                            <div class="col-lg-6">
+                                <label class="my-2 fw-bold">Price</label>
+                                <input type="number"  class="form-control bg-light" id="price_total" name="net_price" value="{{datas.total_price}}">
+                            </div>
+                        </div>
+    
+                        <div class="col-lg-12 mt-4">
+                            <label class="my-2 fw-bold">select discount type :</label>
+                             <select  class="form-control bg-light" name="discount_type" id="discount_type">
+                                <option value="Flat">Flat</option>
+                                <option value="Percentage">Percentage</option>
+                            </select>
+                        </div>
+    
+                        <div class="col-lg-12 mt-4">
+                            <label class="my-2 fw-bold">Discount</label>
+                            <input type="number" class="form-control bg-light" name="discount" id="discount" oninput="discount_price()" >
+                        </div>
+    
+                        <div class="col-lg-12 mt-4">
+                            <label class="my-2 fw-bold">Due Payment</label>
+                            <input class="form-control bg-light" type="number" name="payment_due" id="due_amount" value="{{datas.due_payment}}">
+                        </div>
+                        <button class="col-lg-12 btn  btn-gradient-success fs-5   my-4 " type="submit"><i class="mdi mdi-lock fs-5"></i> Save
+                            Order</a></button>
+                    </div>
+                </div>
+
+                
+        </div>
+    </div>
+    {% if carts %}
+    <div class="col-lg-8 bg-white p-3 " style="border-radius: 10px;">
+        
+        <table style="" id="example1" class="table table-striped table-bordered ">
+          <thead>
+              <tr>
+                  <th>Customer</th>
+                  <th>Type</th>
+                  <th>Service</th>
+                  <th>Product</th>
+                  <th>Price</th>
+                  <th>Qty</th>
+                  <th>Total</th>
+                  <th>Remarks</th>
+                  <th>Action</th>
+                  
+              </tr>
+          </thead>
+          
+          <tbody>
+              {% for cart_datas in cart_data %}
+              <tr>
+                <td>{% for cust in customer %}
+                    {% if cart_datas.cust_id_id == cust.id %}
+                   {{cust.customer_name}}
+                    {% endif %}
+                    {% endfor %}</td>
+                <td>
+                    {{cart_datas.cust_type}}
+                </td>
+                <td>
+                    {{cart_datas.service}}
+                </td>
+             
+                <td>
+                    {{cart_datas.product}}
+                </td>
+                <td>
+                    {{cart_datas.ind_price}}
+                </td>
+                <td>
+                    {{cart_datas.no_item}}
+                </td>
+                <td>
+                    {{cart_datas.total_price}}
+                </td>
+                <td>
+                    {{cart_datas.remarks}}
+                </td>
+                <td>
+                    <button style="border: none;">
+                        <a href="{%url 'order:delete_cart' cart_datas.id %}">
+                          <i class="mdi mdi-delete"></i>
+                        </a>
+                      </button>
+                </td>
+             
+              </tr>
+              {% endfor %}
+              </tbody>
+              </table>
+      </div>
+    {% endif %}
+</div>
+</div>
+
+<script type="text/javascript">
+    document.getElementById('date').value = Date();
+</script>
+
+
+<script>
+    
+    function add_price() {
+		$type = $('#type').val();
+        $service = $('#services').val();        
+		$product  = $('#product').val();
+        console.log($type,$service,$product);    
+		$.ajax({
+			url: "{% url 'order:add_price' %}",
+			data : {
+				type : $type,
+                service : $service,
+				product : $product,
+                csrfmiddlewaretoken: '{{ csrf_token }}'
+			},
+			type: 'POST',
+			success: function(response){
+                var instance = JSON.parse(response["price"]);
+                console.log(instance);
+                $("#price").val(instance);
+                // $('#button-sucess'+$product_id).show();
+				// $('#button'+$product_id).hide();
+
+                // $('#button-sucess-2'+$product_id).show();
+				// $('#button-2'+$product_id).hide();
+			},
+			error: function(error){
+				console.log(error);
+			}
+		});
+};
+</script>
+
+<script>
+    function total_prices() {
+        $peice = $('#peice').val();
+        $price = $("#price").val();
+        console.log($peice*$price);
+        $total_price = $peice*$price;
+        $("#total_price").val($total_price);
+    }
+</script>
+<script>
+    function discount_price(){
+        $discount_type = $('#discount_type').val();
+        $discount = $('#discount').val();
+        $price = $("#price_total").val();
+        $due_amount = 0;
+        if ($discount_type == 'Flat') {
+            console.log($price)
+            $due_amount = $price - $discount;
+            $("#due_amount").val($due_amount);
+        } 
+        else if($discount_type == 'Percentage'){
+            $discount_amount = ($price*$discount)/100;
+            $due_amount = $price - $discount_amount;
+            $("#due_amount").val($due_amount);
+        }
+        else{
+            alert('Please Select Discount Type');
+            $due_amount = $price - $discount;
+            $("#due_amount").val($due_amount);
+        }
+    }
+</script>
+{%endblock%}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

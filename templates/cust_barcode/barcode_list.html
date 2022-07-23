@@ -1,0 +1,94 @@
+{%extends 'base.html'%}
+{%block content%}
+<div  class="row py-5 content-wrapper">
+    
+    <form method="post" name="frm" id="frm">
+        <div class="row mb-3">
+            <div class="col-md-6 mb-3">
+                <h2 class="">Barcode</h2>
+            </div>
+            <div class="col-md-6 text-end">
+               <button class="btn btn-success" type="submit">Print</button>
+
+            </div>
+        </div>
+{% csrf_token %}
+<!-- *********************************************unpaid Table**************************** -->
+  <div class="col-md-12 bg-white p-3" style="border-radius: 10px;">
+   
+    <table  id="example2" class="table display" cellspacing="0" width="100%">
+      <thead>
+          <tr>
+            <th><input type="checkbox" name="select_all" value="1" id="example-select-all"></th>
+              <th>Invid</th>
+              <th>Cust ID</th>
+              <th>B Val</th>
+              <th>Service</th>
+          </tr>
+      </thead>
+      <tbody name='tbody'>
+        
+            {% csrf_token %}
+            {%for bar in barcode%}
+            {% for order in orders %}
+            {% if order.id == bar.inv_id_id  %}
+            <tr>
+                <td><input type="checkbox" value="{{bar.id}}" name="bar_id"></td>
+                <td>{{bar.inv_id_id}}</td>
+                <td>{{bar.cust_id_id}}</td>
+                <td>{{bar.bvalue}}</td>
+                <td>{{bar.service}}</td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+            
+
+        {%endfor%}
+     </tbody>
+
+  </table>
+ 
+  </div>
+  
+ 
+  </form>
+
+
+<script>
+      
+      $(document).ready(function (){   
+   var table = $('#example2').DataTable({
+      'columnDefs': [{
+         'targets': 0,
+         'searchable':false,
+         'orderable':false,
+      }],
+      'order': [1, 'asc']
+   });
+
+   // Handle click on "Select all" control
+   $('#example-select-all').on('click', function(){
+      // Check/uncheck all checkboxes in the table
+      var rows = table.rows({ 'search': 'applied' }).nodes();
+      $('input[type="checkbox"]', rows).prop('checked', this.checked);
+   });
+
+   // Handle click on checkbox to set state of "Select all" control
+   $('#example tbody').on('change', 'input[type="checkbox"]', function(){
+      // If checkbox is not checked
+      if(!this.checked){
+         var el = $('#example-select-all').get(0);
+         // If "Select all" control is checked and has 'indeterminate' property
+         if(el && el.checked && ('indeterminate' in el)){
+            // Set visual state of "Select all" control 
+            // as 'indeterminate'
+            el.indeterminate = true;
+         }
+      }
+   });
+    
+
+});
+    </script>
+</div>
+{%endblock%}

@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{%block content%}
+<div class="main-panel content-wrapper ">
+    <div class="content-wrapper d-flex flex-column">
+        <h2>update Whatsapp msg</h2>
+
+
+                    <div class="col-lg-12 " style="border: none;background-color: white;border-radius: 10px;">
+                        <div class="col-lg-12 bg-light" style="border-bottom: 1px solid rgb(144, 143, 143);border-top-left-radius: 10px;border-top-right-radius: 10px;">
+                          <p class="p-2 fs-5"> Create Message </p>
+                        </div>
+                        <form method="post"class="p-3">
+                            {% csrf_token %}
+                          <div class="row mt-3 ">
+                            <div class="col-lg-12">
+          
+                              <label class="my-2 fw-bold">Message</label>
+                              <input type="text_area" list="cust_name" name="message" {% if message %}
+                              value="{{message.text}}"
+                              {% endif %} class="form-control bg-light">
+                              <button type="submit">Save</button>
+                             
+                            </div>
+                            
+          
+                          </div>
+                        </form>
+                      </div>
+    </div>
+                      
+
+
+
+
+
+
+
+
+
+                    <!-- partial -->
+                </div>
+                <!-- page-body-wrapper ends -->
+            </div>
+
+
+
+<!-- <h1 style="margin-left: 50px;">Create Whatsapp Message</h1>
+<table style="margin-left: 50px;" style='border :2px solid'>
+    <tr>
+        <h5 style="margin-left: 50px;">Create Message</h5>
+        <!-- <th>Message</th> -->
+        <!-- <td>
+            <form method="post">
+                {% csrf_token %}
+                Message :<textarea name="message" rows="4" cols="30">
+
+                        </textarea>
+                <button type="submit">Save</button>
+            </form>
+        </td>
+    </tr>
+
+</table> --> -->
+{% endblock %}
+

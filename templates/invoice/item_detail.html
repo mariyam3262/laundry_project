@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load static %}
+    {%block content%}
+    
+    <div  class="row py-5 content-wrapper">
+        <div class="col-12">
+        <h3 class="my-5">Create user</h3>
+        </div>
+    <h1>{{items.id}}</h1>
+    <div>
+    <a href="{% url 'invoice:update' items.id %}"><button class=" btn  btn-behance  my-4 p-2 "> update</button></a>
+    <a href="{% url 'invoice:delete' items.id %}"><button class=" btn    my-4 p-2 text-white" style="background-color: red;"> Delete
+    </button></a>
+</div>
+    
+
+    <div class="col-md-12 grid-margin stretch-card  table-responsive bg-white p-3  shadow"
+      style="border-radius: 10px;">
+
+    
+      <table class="table table-bordered table-striped">
+    
+          <tbody>
+            <tr>
+              <th scope="row">Ip Id</th>
+              
+              <td>{{items.id}}</td>
+            </tr>
+            <tr>
+              <th scope="row">Type</th>
+              <td>{{items.cust_type}}</td>
+             
+            </tr>
+            <tr>
+              <th scope="row">Service</th>
+              <td>{{items.service}}</td>
+              
+            </tr>
+            <tr>
+              <th scope="row">Cloth Type</th>
+              <td>{{items.cloth_type}}</td>
+              
+            </tr>
+            <tr>
+              <th scope="row">Price</th>
+              <td>{{items.price}}</td>
+              
+            </tr>
+           
+          </tbody>
+        </table>
+    
+    </div>
+
+
+
+
+
+
+
+
+
+
+    <!-- partial -->
+  </div>
+  <!-- page-body-wrapper ends -->
+</div>
+
+    {%endblock%}

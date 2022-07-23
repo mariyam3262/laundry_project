@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div  class="row py-5 content-wrapper">
+  <div class="col-12">
+    <h3 class="my-4" style="margin-left: 20px;">Active Customers</h3>
+  </div>
+  <div class="col-12 px-4">
+
+    <div class="table-responsive container bg-white p-3 shadow" style="border-radius: 10px;">
+      <table id="example" class="table table-hover table-bordered" style="width:100%">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Mobile No</th>
+            <th>Address</th>
+            <th>Location</th>
+            <th>Email</th>
+            <th>Pincode</th>
+            <th>DOB</th>
+            <th>Membership ID</th>
+            <th>Service</th>
+            <th>Action</th>
+
+          </tr>
+        </thead>
+        <tbody>
+
+          {% for cust in custs%}
+          <tr>
+            <td><a href="{% url 'customer:details' cust.id %}"> {{ cust.customer_name }}</a></td>
+            <td> {{ cust.mobile }}</td>
+            <td> {{ cust.address }}</td>
+            <td> {{ cust.location }}</td>
+            <td> {{ cust.email }}</td>
+            <td> {{ cust.pincode }}</td>
+            <td> {{ cust.dob }}</td>
+            <td> {{ cust.memebership_id }}</td>
+            <td> {{ cust.customer_service }}</td>
+            <td>
+              <button style="border: none;">
+                <a href="{%url 'customer:details' cust.id%}">
+                  <i class="mdi mdi-eye"></i>
+                </a>
+              </button>
+              <button style="border: none;">
+                <a href="{%url 'customer:update' cust.id%}">
+                  <i class="mdi mdi-border-color"></i>
+                </a>
+              </button>
+              <button style="border: none;">
+                <a href="{%url 'customer:delete' cust.id %}">
+                  <i class="mdi mdi-delete"></i>
+                </a>
+              </button>
+            </td>
+          </tr>
+          {%endfor%}
+
+
+
+
+
+        </tbody>
+        <tfoot>
+          <tr>
+            <th>Name</th>
+            <th>Mobile No</th>
+            <th>Address</th>
+            <th>Location</th>
+            <th>Email</th>
+            <th>Pincode</th>
+            <th>DOB</th>
+            <th>Membership ID</th>
+            <th>Service</th>
+            <th></th>
+          </tr>
+        </tfoot>
+
+      </table>
+    </div>
+
+
+
+
+
+
+
+  </div>
+</div>
+
+
+
+{% endblock %}
+
+
+
+
+

@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div  class="row py-5 content-wrapper">
+    <div class="col-12">
+      <h3 class="my-4" style="margin-left: 20px;">Expenses List</h3>
+    </div>
+<div class="col-md-12 bg-white p-3">
+    <a href="{% url 'expense:expense_create'%}"><button class="col-lg-3 btn  btn-gradient-success fs-5   my-4 "> + Add Expenses</button></a>
+</div>
+
+<div class="col-md-12 bg-white p-3">
+   
+    <table  id="example4" class="table display" cellspacing="0" width="100%">
+      <thead>
+          <tr>
+           
+              <th>ID</th>
+              <th>Expense Type</th>
+              <th>Amount</th>
+              <th>Date</th>
+              <th>Action</th>
+          </tr>
+      </thead>
+      <tfoot>
+        <tr>
+            <td></td>
+            <td>Totals</td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </tfoot>
+      <tbody name='tbody'>
+            {% for expense in expenses %}
+            <tr>
+                <td>
+                    {{expense.id}}
+                </td>
+                <td>
+                    {{expense.expense}}
+              </td>
+              <td>
+                   {{expense.amount}} 
+              </td>
+              <td>
+                    {{expense.date}}
+              </td>
+              <td>
+                <button style="border: none;">
+                    <a href="{% url 'expense:delete_expense' expense.id%}">
+                      <i class="mdi mdi-delete"></i>
+                    </a>
+                  </button>
+                  <button style="border: none;">
+                    <a href="{% url 'expense:edit_expense' expense.id%}">
+                      <i class="mdi mdi-pencil"></i>
+                    </a>
+                  </button>
+              </td>
+              </tr>
+  
+            {% endfor %}
+           
+     </tbody>
+
+  </table>
+ 
+  </div>
+</div>
+<script>
+  $(document).ready(function () {
+      // DataTable initialisation
+      $('#example4').DataTable(
+          {
+              "scrollX": true,
+              dom: 'lBfrtip',
+              buttons: [
+                  'copy', 'csv', 'excel', 'pdf', 'print'
+              ],
+              "footerCallback": function (row, data, start, end, display) {
+                  var api = this.api();
+                  nb_cols = api.columns().nodes().length;
+                  var j = 2;
+                  while (j < nb_cols) {
+                      var pageTotal = api
+                          .column(j, { page: 'current' })
+                          .data()
+                          .reduce(function (a, b) {
+                              return Number(a) + Number(b);
+                          }, 0);
+                      // Update footer
+                      $(api.column(j).footer()).html(pageTotal);
+                      j++;
+                  }
+              }
+          }
+      );
+  });
+</script>
+{% endblock %}
